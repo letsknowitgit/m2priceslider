@@ -14,3 +14,7 @@ php bin/magento setup:di:compile
 
 4. Clean Cache
 php bin/magento cache:clean
+
+#To install and upgrade support 
+
+contact : info@letsknowit.com
