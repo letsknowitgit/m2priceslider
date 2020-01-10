@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+* LetsknowIT.
+*
+* @category  Letsknowit
+* @package   Letsknowit_Priceslider
+* @author    LetsknowIT
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Letsknowit_Priceslider::lkit_ps.css"/>
+    </head>
+    <body>    
+        <referenceBlock name="catalog.navigation.renderer">
+            <block class="Letsknowit\Priceslider\Block\FilterRenderer" name="priceslider"/>
+        </referenceBlock>
+         <referenceBlock name="catalog.leftnav">
+          <action method="setTemplate">     
+            <argument name="template" xsi:type="string">Letsknowit_Priceslider::view.phtml</argument>
+        </action>
+    </referenceBlock>
+    </body>
+</page>

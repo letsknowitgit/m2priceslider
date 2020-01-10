@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* LetsknowIT.
+*
+* @category  Letsknowit
+* @package   Letsknowit_Priceslider
+* @author    LetsknowIT
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" type="Letsknowit\Priceslider\Block\FilterRenderer" />
+    <type name="Letsknowit\Priceslider\Block\FilterRenderer">
+        <plugin name="swatches_layered_renderer" type="Magento\Swatches\Model\Plugin\FilterRenderer" sortOrder="1" />
+    </type>
+
+</config>

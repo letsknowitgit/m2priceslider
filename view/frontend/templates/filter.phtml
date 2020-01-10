@@ -1,0 +1,88 @@
+<?php
+/**
+* LetsknowIT.
+*
+* @category  Letsknowit
+* @package   Letsknowit_Priceslider
+* @author    LetsknowIT
+*/
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer
+ */
+?>
+<?php if ($filter instanceof Magento\CatalogSearch\Model\Layer\Filter\Price): ?>
+    <?php   $range = $this->getPriceRange($filter); ?>
+    <?php   $filteredrange = $this->getPriceRangeFiltered($filter);?>
+    <?php $url = $this->getFilterUrl($filter); ?> 
+    <?php $currency = $this->getCurrencySymbol(); ?> 
+    <script>
+        var price_url = "<?= $url; ?>";
+        require([
+            'jquery',
+            "jquery/ui",
+            'domReady!'
+        ], function ($) {
+            $("div#price-slider").slider({
+                range: true,
+                min: <?= $range['min'] ?>,
+                max: <?= $range['max'] ?>,
+                values: [<?= $filteredrange['min'] ?>, <?= $filteredrange['max'] ?>],
+                slide: function (event, ui) {
+                    var rangemaxPrice = parseInt(ui.values[1]+1)
+                    $("#amountfrom").val(ui.values[ 0 ]);
+                    $("#amountto").val( rangemaxPrice);
+                },
+                change: function (event, ui) {
+                     var rangemaxPrice = parseInt(ui.values[1]+1);
+                     var resultURL = price_url.replace("price=", "price="+ui.values[0] + "-" + rangemaxPrice);
+                     window.location.href = resultURL;
+                }
+            });
+            
+            $( "#price-go" ).click(function() {                
+                var priceFrom = $("#amountfrom").val();
+                var priceTo = $("#amountto").val();
+                var rangemaxPrice = parseInt(priceTo+1)
+                var resultURL = price_url.replace("price=", "price="+priceFrom + "-" + priceTo);
+                window.location.href = resultURL;
+            
+            });
+            $("#amount").val("$" + $("#price-slider").slider("values", 0) +
+                    " - $" + $("#price-slider").slider("values", 1));
+
+            $("#amountfrom").val($("#price-slider").slider("values", 0));
+            $("#amountto").val($("#price-slider").slider("values", 1));
+
+        });
+    </script>
+   
+    <div id="price-slider"></div>
+    <div class="inputrange">
+        <span class="store_currency"><?php echo $currency; ?></span>
+        
+        <input type="text" name="from" id="amountfrom" value=""/>
+        <span class="delimiter">-</span>
+        <input id="amountto" type="text" name="to" value=""/>
+        <button class="price-go" title="Apply filter" id="price-go"><?= /* @escapeNotVerified */ __('Go') ?></button>
+    </div>
+
+<?php else: ?>
+    <div class="radio-custom">
+        <?php foreach ($filterItems as $filterItem): ?>
+            <div class="radio-col">
+                <?php if ($filterItem->getCount() > 0): ?>
+                    <a href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>">
+                        <input type="radio" name="pro-size" id="<?php /* @escapeNotVerified */ echo $filterItem->getId() ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>"> <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></label>
+                    </a>
+                <?php else: ?>
+                    <label for="<?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>"> <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></label>
+                <?php endif; ?>
+            </div>
+        <?php endforeach ?>
+    </div>
+<?php endif; ?>

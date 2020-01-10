@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+* LetsknowIT.
+*
+* @category  Letsknowit
+* @package   Letsknowit_Priceslider
+* @author    LetsknowIT
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="letsknowit_extensions" translate="label" sortOrder="20">
+            <label>LetsknowIT</label>
+        </tab>
+        <section id="letsknowit_priceslider" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Price Slider</label>
+            <tab>letsknowit_extensions</tab>
+            <resource>Letsknowit_Priceslider::letsknowit_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Price Slider Options</label>
+                
+                <field id="slider" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Price slider</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
